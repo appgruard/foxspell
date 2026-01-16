@@ -38,10 +38,8 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden bg-ritual">
       {/* Subtle Navigation Menu */}
-      <nav className="fixed top-0 left-0 w-full z-[100] px-2 md:px-4 py-4 flex items-center justify-between pointer-events-none">
-        <div className="flex-1 md:block hidden" />
-
-        <div className="flex items-center gap-6 md:gap-8 px-6 md:px-8 py-2 rounded-full border border-white/10 bg-black/40 backdrop-blur-xl pointer-events-auto shadow-2xl mx-auto md:mx-0">
+      <nav className="fixed top-0 left-0 w-full z-[100] px-4 py-4 flex justify-center pointer-events-none">
+        <div className="flex items-center gap-6 md:gap-8 px-6 md:px-8 py-2 rounded-full border border-white/10 bg-black/40 backdrop-blur-xl pointer-events-auto shadow-2xl">
           <a 
             href="#oraculo" 
             className="text-xs md:text-xs uppercase tracking-[0.15em] md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
@@ -72,17 +70,15 @@ export default function Home() {
           >
             Contacto
           </a>
-        </div>
-
-        <div className="md:flex-1 flex justify-end pr-2 md:pr-8 pointer-events-auto">
+          <div className="w-px h-4 bg-white/10 mx-2" />
           <Button
-            variant="outline"
+            variant="ghost"
             size="icon"
             onClick={toggleMute}
-            className="rounded-full bg-black/40 backdrop-blur-xl border-white/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all shadow-lg w-8 h-8 md:w-10 md:h-10"
+            className="text-muted-foreground hover:text-primary transition-colors w-6 h-6 p-0 no-default-hover-elevate"
             title={isMuted ? "Activar música" : "Silenciar música"}
           >
-            {isMuted ? <VolumeX className="w-4 h-4 md:w-5 md:h-5" /> : <Volume2 className="w-4 h-4 md:w-5 md:h-5" />}
+            {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
           </Button>
         </div>
       </nav>
