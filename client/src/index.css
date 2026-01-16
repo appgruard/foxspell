@@ -70,6 +70,7 @@
 }
 
 .bg-ritual {
+  background-color: hsl(220 40% 2%);
   background-image: 
     linear-gradient(to bottom, hsl(220 40% 2% / 0.8), hsl(220 40% 2% / 0.95)),
     url('@assets/generated_images/mystical_arctic_night_landscape_background.png');
