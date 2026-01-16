@@ -41,10 +41,10 @@ export default function Home() {
       <nav className="fixed top-0 left-0 w-full z-[100] px-2 md:px-4 py-4 flex items-center justify-between pointer-events-none">
         <div className="flex-1 md:block hidden" />
 
-        <div className="flex items-center gap-4 md:gap-8 px-4 md:px-8 py-2 rounded-full border border-white/10 bg-black/40 backdrop-blur-xl pointer-events-auto shadow-2xl mx-auto md:mx-0">
+        <div className="flex items-center gap-6 md:gap-8 px-6 md:px-8 py-2 rounded-full border border-white/10 bg-black/40 backdrop-blur-xl pointer-events-auto shadow-2xl mx-auto md:mx-0">
           <a 
             href="#oraculo" 
-            className="text-[10px] md:text-xs uppercase tracking-[0.1em] md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
+            className="text-xs md:text-xs uppercase tracking-[0.15em] md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -54,7 +54,7 @@ export default function Home() {
           </a>
           <a 
             href="#servicios" 
-            className="text-[10px] md:text-xs uppercase tracking-[0.1em] md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
+            className="text-xs md:text-xs uppercase tracking-[0.15em] md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
             onClick={(e) => {
               e.preventDefault();
               document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth' });
@@ -64,7 +64,7 @@ export default function Home() {
           </a>
           <a 
             href="#contacto" 
-            className="text-[10px] md:text-xs uppercase tracking-[0.1em] md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
+            className="text-xs md:text-xs uppercase tracking-[0.15em] md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
