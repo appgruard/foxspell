@@ -67,37 +67,20 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-md"
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/40 backdrop-blur-sm"
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              transition={{ 
-                type: "spring",
-                stiffness: 260,
-                damping: 20 
-              }}
-              className="relative group"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
             >
-              <div className="absolute -inset-4 bg-primary/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <Button
                 onClick={startRitual}
-                variant="outline"
+                variant="ghost"
                 size="lg"
-                className="relative px-12 py-8 text-lg font-display tracking-[0.3em] uppercase bg-white/5 hover:bg-white/10 border-white/20 text-white backdrop-blur-xl rounded-full transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(var(--primary),0.2)] overflow-hidden"
+                className="px-6 py-4 text-xs font-display tracking-[0.2em] uppercase text-white/60 hover:text-white hover:bg-white/5 transition-all duration-300"
               >
-                <span className="relative z-10">Entrar al Ritual</span>
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
-                  animate={{
-                    x: ['-100%', '100%'],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                />
+                Click para continuar
               </Button>
             </motion.div>
           </motion.div>
