@@ -9,6 +9,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, Volume2, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+import { LoreSection } from "@/components/LoreSection";
+
 export default function Home() {
   const { fingerprintHash, loading: fpLoading } = useFingerprint();
   const { mutate: consult, isPending, data: result } = useConsultOracle();
@@ -49,6 +51,16 @@ export default function Home() {
             }}
           >
             Oráculo
+          </a>
+          <a 
+            href="#lore" 
+            className="text-xs md:text-xs uppercase tracking-[0.15em] md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('lore')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            Sabiduría
           </a>
           <a 
             href="#servicios" 
@@ -199,6 +211,9 @@ export default function Home() {
         
         {/* Divider */}
         <div className="w-full max-w-xs mx-auto h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-24" />
+
+        {/* Lore Section */}
+        <LoreSection />
 
         {/* Catalog */}
         <CatalogSection />

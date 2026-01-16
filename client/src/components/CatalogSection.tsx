@@ -22,7 +22,7 @@ export function CatalogSection() {
         </h2>
         <div className="h-1 w-24 bg-gradient-to-r from-transparent via-primary/40 to-transparent mx-auto" />
         <p className="text-muted-foreground mt-4 font-serif text-lg italic max-w-2xl mx-auto">
-          Herramientas místicas para moldear tu destino y desvelar los misterios ocultos.
+          Mis hechizos nórdicos son de los más efectivos, hay algunos que no están en el catálogo, puedes consultar por ellos.
         </p>
       </div>
 
