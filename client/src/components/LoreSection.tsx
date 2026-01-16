@@ -24,7 +24,7 @@ export function LoreSection() {
     <section id="informacion" className="py-24 px-4 max-w-6xl mx-auto border-t border-white/5">
       <div className="text-center mb-16">
         <h2 className="text-3xl md:text-4xl font-display font-bold text-primary mb-4 tracking-wider uppercase">
-          Información Mística
+          Información
         </h2>
         <div className="h-1 w-24 bg-gradient-to-r from-transparent via-primary/40 to-transparent mx-auto" />
       </div>
@@ -51,6 +51,83 @@ export function LoreSection() {
           </motion.div>
         ))}
       </div>
+
+      {/* Payment Information */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="mt-24 p-8 md:p-12 rounded-3xl bg-primary/5 border border-primary/10 backdrop-blur-sm"
+      >
+        <div className="max-w-3xl mx-auto text-center">
+          <h3 className="text-2xl font-display font-bold text-primary mb-6">
+            Información de Pago
+          </h3>
+          <p className="text-lg font-serif text-foreground mb-8">
+            Los hechizos se agendan una vez que has realizado un pago parcial o completo.
+          </p>
+          
+          <div className="grid md:grid-cols-2 gap-8 text-left">
+            <div className="space-y-4 p-6 rounded-2xl bg-black/40 border border-white/5">
+              <h4 className="font-display font-bold text-primary flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-primary" />
+                Internacional
+              </h4>
+              <div className="space-y-2 font-serif text-sm">
+                <p className="flex justify-between items-center border-b border-white/5 pb-2">
+                  <span className="text-muted-foreground">Paypal:</span>
+                  <span className="text-foreground">ytatianagomez05@gmail.com</span>
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-4 p-6 rounded-2xl bg-black/40 border border-white/5">
+              <h4 className="font-display font-bold text-primary flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-primary" />
+                México (BBVA)
+              </h4>
+              <div className="space-y-2 font-serif text-sm">
+                <p className="text-foreground font-mono">4152314395088746</p>
+                <p className="text-muted-foreground text-xs uppercase tracking-wider">Naomi Carrillo</p>
+              </div>
+            </div>
+
+            <div className="space-y-4 p-6 rounded-2xl bg-black/40 border border-white/5">
+              <h4 className="font-display font-bold text-primary flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-primary" />
+                Mercado Pago
+              </h4>
+              <div className="space-y-2 font-serif text-sm">
+                <p className="flex justify-between items-center border-b border-white/5 pb-2">
+                  <span className="text-muted-foreground">Usuario:</span>
+                  <span className="text-foreground">celef.e</span>
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-4 p-6 rounded-2xl bg-black/40 border border-white/5">
+              <h4 className="font-display font-bold text-primary flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-primary" />
+                Colombia (Nequi / BBVA)
+              </h4>
+              <div className="space-y-2 font-serif text-sm">
+                <p className="flex justify-between items-center border-b border-white/5 pb-1">
+                  <span className="text-muted-foreground">Nequi:</span>
+                  <span className="text-foreground">3104462860</span>
+                </p>
+                <p className="flex justify-between items-center border-b border-white/5 pb-1">
+                  <span className="text-muted-foreground">Llave Nequi:</span>
+                  <span className="text-foreground text-[10px] md:text-sm">jesúsgarcía2k51@gmail.com</span>
+                </p>
+                <p className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Llave BBVA:</span>
+                  <span className="text-foreground">3104462860</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </section>
   );
 }
