@@ -38,8 +38,9 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden bg-ritual">
       {/* Subtle Navigation Menu */}
-      <nav className="fixed top-0 left-0 w-full z-50 px-8 py-4 flex items-center pointer-events-none">
-        <div className="flex-1" /> {/* Left Spacer */}
+      <nav className="fixed top-0 left-0 w-full z-50 px-4 py-4 flex items-center pointer-events-none">
+        {/* Empty left spacer to maintain centering of the pill */}
+        <div className="flex-1" />
 
         <div className="flex items-center gap-8 px-8 py-2 rounded-full border border-white/5 bg-black/20 backdrop-blur-md pointer-events-auto shadow-2xl">
           <a 
@@ -74,8 +75,9 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="flex-1 flex justify-end">
-          <div className="w-12 h-12 flex items-center justify-center pointer-events-auto">
+        {/* Mute button container */}
+        <div className="flex-1 flex justify-end px-4">
+          <div className="pointer-events-auto">
             <Button
               variant="ghost"
               size="icon"
