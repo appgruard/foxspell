@@ -15,13 +15,21 @@ export default function Home() {
   const { fingerprintHash, loading: fpLoading } = useFingerprint();
   const { mutate: consult, isPending, data: result } = useConsultOracle();
   const [selectedRune, setSelectedRune] = useState<string | null>(null);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = 0.4;
+      // Try to play on mount, but browsers might block it until user interaction
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.log("Autoplay blocked, waiting for user interaction:", error);
+          setIsMuted(true); // Fallback to muted if blocked
+        });
+      }
     }
   }, []);
 
@@ -111,7 +119,7 @@ export default function Home() {
       {/* Background Music */}
       <audio
         ref={audioRef}
-        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+        src="https://www.youtube.com/embed/l08Zw-RY__Q?autoplay=1&loop=1&playlist=l08Zw-RY__Q"
         loop
       />
 
