@@ -67,20 +67,37 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/40 backdrop-blur-sm"
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-md"
           >
             <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.1 }}
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              transition={{ 
+                type: "spring",
+                stiffness: 260,
+                damping: 20 
+              }}
+              className="relative group"
             >
+              <div className="absolute -inset-4 bg-primary/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <Button
                 onClick={startRitual}
                 variant="outline"
                 size="lg"
-                className="px-8 py-6 text-sm font-display tracking-[0.2em] uppercase bg-black/60 hover:bg-black/80 border-white/20 text-white backdrop-blur-md rounded-none transition-all hover:scale-105 active:scale-95"
+                className="relative px-12 py-8 text-lg font-display tracking-[0.3em] uppercase bg-white/5 hover:bg-white/10 border-white/20 text-white backdrop-blur-xl rounded-full transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(var(--primary),0.2)] overflow-hidden"
               >
-                Click para continuar
+                <span className="relative z-10">Entrar al Ritual</span>
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                  animate={{
+                    x: ['-100%', '100%'],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
               </Button>
             </motion.div>
           </motion.div>
