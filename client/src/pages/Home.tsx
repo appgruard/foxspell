@@ -15,11 +15,24 @@ export default function Home() {
   const { fingerprintHash, loading: fpLoading } = useFingerprint();
   const { mutate: consult, isPending, data: result } = useConsultOracle();
   const [selectedRune, setSelectedRune] = useState<string | null>(null);
-  const [isMuted, setIsMuted] = useState(false);
-  const [showVideo, setShowVideo] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
+  const [showVideo, setShowVideo] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.4;
+    }
+  }, []);
 
   const toggleMute = () => {
-    setShowVideo(!showVideo);
+    if (audioRef.current) {
+      if (isMuted) {
+        audioRef.current.play().catch(console.error);
+      } else {
+        audioRef.current.pause();
+      }
+    }
     setIsMuted(!isMuted);
   };
 
@@ -96,17 +109,11 @@ export default function Home() {
       </nav>
 
       {/* Background Music */}
-      {showVideo && (
-        <div className="fixed bottom-0 right-0 w-0 h-0 opacity-0 overflow-hidden pointer-events-none">
-          <iframe
-            width="1"
-            height="1"
-            src="https://www.youtube.com/embed/l08Zw-RY__Q?autoplay=1&loop=1&playlist=l08Zw-RY__Q"
-            title="Wildflower"
-            allow="autoplay"
-          ></iframe>
-        </div>
-      )}
+      <audio
+        ref={audioRef}
+        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+        loop
+      />
 
       {/* Decorative background elements */}
       <div className="fixed inset-0 pointer-events-none z-0">
