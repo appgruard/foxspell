@@ -29,7 +29,7 @@ export function OracleResult({ benefit, code, message, alreadyClaimed, rune }: O
   };
 
   const handleTwitterShare = () => {
-    const text = `He consultado el Oráculo de las Runas ${rune} @mysticFoxyy y he obtenido un ${benefit} de descuento! Mi código es: ${code}`;
+    const text = `He consultado el Oráculo de Fox's spells ${rune} @mysticFoxyy y he obtenido un ${benefit} de descuento! Mi código es: ${code}`;
     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, "_blank");
   };
 

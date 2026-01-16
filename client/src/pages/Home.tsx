@@ -44,7 +44,7 @@ export default function Home() {
             transition={{ duration: 1 }}
           >
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-foreground mb-4 tracking-tight">
-              Oráculo <span className="text-primary">Nórdico</span>
+              Fox's <span className="text-primary">spells</span>
             </h1>
             <p className="text-xl md:text-2xl font-serif text-muted-foreground italic max-w-2xl mx-auto">
               Elige una runa para obtener un descuento 🩵

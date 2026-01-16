@@ -1,4 +1,4 @@
-# Nordic Magic Oracle
+# Fox's spells
 
 ## Overview
 
