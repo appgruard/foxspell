@@ -13,13 +13,17 @@ export default function Home() {
   const { fingerprintHash, loading: fpLoading } = useFingerprint();
   const { mutate: consult, isPending, data: result } = useConsultOracle();
   const [selectedRune, setSelectedRune] = useState<string | null>(null);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     // Note: Most browsers require user interaction before playing audio
     if (audioRef.current) {
       audioRef.current.volume = 0.3; // Moderate volume
+      audioRef.current.play().catch(() => {
+        // Fallback for browsers that block autoplay
+        setIsMuted(true);
+      });
     }
   }, []);
 
@@ -51,17 +55,19 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden bg-ritual">
       {/* Subtle Navigation Menu */}
-      <nav className="fixed top-0 left-0 w-full z-50 px-6 py-4 flex justify-between items-center pointer-events-none">
-        <div className="w-10 h-10 flex items-center justify-center pointer-events-auto">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={toggleMute}
-            className="text-muted-foreground hover:text-primary transition-colors"
-            title={isMuted ? "Activar música" : "Silenciar música"}
-          >
-            {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
-          </Button>
+      <nav className="fixed top-0 left-0 w-full z-50 px-6 py-4 flex items-center pointer-events-none">
+        <div className="flex-1 flex justify-start">
+          <div className="w-10 h-10 flex items-center justify-center pointer-events-auto">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleMute}
+              className="text-muted-foreground hover:text-primary transition-colors"
+              title={isMuted ? "Activar música" : "Silenciar música"}
+            >
+              {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+            </Button>
+          </div>
         </div>
 
         <div className="flex items-center gap-8 px-8 py-2 rounded-full border border-white/5 bg-black/20 backdrop-blur-md pointer-events-auto shadow-2xl">
@@ -96,7 +102,7 @@ export default function Home() {
             Contacto
           </a>
         </div>
-        <div className="w-10" /> {/* Spacer to center the menu */}
+        <div className="flex-1" /> {/* Spacer to center the menu */}
       </nav>
 
       {/* Background Music */}
