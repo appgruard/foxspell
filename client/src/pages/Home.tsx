@@ -47,7 +47,7 @@ export default function Home() {
               Oráculo <span className="text-primary">Nórdico</span>
             </h1>
             <p className="text-xl md:text-2xl font-serif text-muted-foreground italic max-w-2xl mx-auto">
-              Elige una runa. Descubre tu fortuna.
+              Elige una runa para obtener un descuento 🩵
             </p>
           </motion.div>
         </div>

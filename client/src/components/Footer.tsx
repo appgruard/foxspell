@@ -26,7 +26,7 @@ export function Footer() {
             Los códigos son únicos e intransferibles.
           </p>
           <p className="pt-4">
-            &copy; {new Date().getFullYear()} Nordic Magic Oracle
+            &copy; {new Date().getFullYear()} Fox Spells
           </p>
         </div>
       </div>

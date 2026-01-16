@@ -14,23 +14,41 @@ export async function registerRoutes(
   const hashIp = (ip: string) => crypto.createHash('sha256').update(ip).digest('hex');
 
   // Probability Logic
-  function determineBenefit(isSuspicious: boolean): string {
+  function determineBenefit(isSuspicious: boolean, rune: string): string {
+    const rand = Math.random() * 100;
+
+    // Rune-based multipliers (mystical variance)
+    const runeMultipliers: Record<string, number> = {
+      "Fehu": 1.2,    // Runa de la riqueza (+20% suerte)
+      "Uruz": 0.8,    // Runa de la fuerza (más difícil obtener premios altos)
+      "Thurisaz": 0.5, // Runa del caos (suerte reducida)
+      "Ansuz": 1.5,   // Runa de la sabiduría/dioses (+50% suerte)
+      "Raido": 1.0,   // Runa del viaje (estándar)
+      "Kenaz": 1.3,   // Runa de la antorcha (+30% suerte)
+      "Gebo": 2.0,    // Runa del regalo (¡Doble de suerte!)
+      "Wunjo": 1.4    // Runa de la alegría (+40% suerte)
+    };
+
+    let luckFactor = runeMultipliers[rune] || 1.0;
+
+    // Drastic reduction for suspicious behavior
     if (isSuspicious) {
-      return "5%"; // Force lowest tier
+      luckFactor *= 0.05; // 95% reduction in luck
     }
 
-    const rand = Math.random() * 100;
-    // 0.5% Free Spell
-    if (rand < 0.5) return "Hechizo Gratis";
-    // 5% -> 25% (0.5 to 5.5)
-    if (rand < 5.5) return "25%";
-    // 10% -> 20% (5.5 to 15.5)
-    if (rand < 15.5) return "20%";
-    // 20% -> 15% (15.5 to 35.5)
-    if (rand < 35.5) return "15%";
-    // 30% -> 10% (35.5 to 65.5)
-    if (rand < 65.5) return "10%";
-    // Remaining -> 5%
+    // Adjusted thresholds
+    const freeSpellThreshold = 0.5 * luckFactor;
+    const p25Threshold = (0.5 + 5) * luckFactor;
+    const p20Threshold = (5.5 + 10) * luckFactor;
+    const p15Threshold = (15.5 + 20) * luckFactor;
+    const p10Threshold = (35.5 + 30) * luckFactor;
+
+    if (rand < freeSpellThreshold) return "Hechizo Gratis";
+    if (rand < p25Threshold) return "25%";
+    if (rand < p20Threshold) return "20%";
+    if (rand < p15Threshold) return "15%";
+    if (rand < p10Threshold) return "10%";
+    
     return "5%";
   }
 
@@ -58,12 +76,10 @@ export async function registerRoutes(
       // Record this attempt
       await storage.recordAttempt(ipHash);
 
-      // If too many attempts (e.g., > 10 distinct fingerprints from same IP), reduce luck
-      // Prompt says "Límite de intentos... Si sospechoso... reducir probabilidad"
-      // If STRICT limit is needed, we could return 429. But prompt says "Reducir silenciosamente".
-      const isSuspicious = attemptsCount > 5;
+      // Farming detection: High frequency or repetitive IP behavior
+      const isSuspicious = attemptsCount > 3; // More sensitive threshold
 
-      const benefit = determineBenefit(isSuspicious);
+      const benefit = determineBenefit(isSuspicious, input.rune);
       const code = crypto.randomBytes(4).toString('hex').toUpperCase();
 
       const claim = await storage.createClaim({
