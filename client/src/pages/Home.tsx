@@ -67,37 +67,22 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/90 backdrop-blur-xl"
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/40 backdrop-blur-sm"
           >
-            <div className="text-center space-y-8 px-4 max-w-2xl">
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.2 }}
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.1 }}
+            >
+              <Button
+                onClick={startRitual}
+                variant="outline"
+                size="lg"
+                className="px-8 py-6 text-sm font-display tracking-[0.2em] uppercase bg-black/60 hover:bg-black/80 border-white/20 text-white backdrop-blur-md rounded-none transition-all hover:scale-105 active:scale-95"
               >
-                <h1 className="text-5xl md:text-7xl font-display font-bold text-foreground mb-4 tracking-[0.2em] uppercase">
-                  Fox's <span className="text-primary">spells</span>
-                </h1>
-                <p className="text-xl md:text-2xl font-serif text-muted-foreground italic mb-12">
-                  Un oráculo antiguo aguarda tu presencia...
-                </p>
-              </motion.div>
-              
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.4 }}
-              >
-                <Button
-                  onClick={startRitual}
-                  size="lg"
-                  className="px-12 py-8 text-xl font-display tracking-[0.3em] uppercase bg-white/5 hover:bg-white/10 border border-white/20 backdrop-blur-md rounded-full transition-all hover:scale-105 active:scale-95 group"
-                >
-                  Iniciar Ritual
-                  <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                </Button>
-              </motion.div>
-            </div>
+                Click para continuar
+              </Button>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
