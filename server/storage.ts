@@ -1,6 +1,5 @@
-import { db } from "./db";
-import { claims, attempts, type InsertClaim, type Claim } from "@shared/schema";
-import { eq, count, gt, and } from "drizzle-orm";
+import { type Claim, type InsertClaim } from "@shared/schema";
+import { randomUUID } from "crypto";
 
 export interface IStorage {
   getClaimByFingerprint(hash: string): Promise<Claim | undefined>;
@@ -14,36 +13,50 @@ export interface IStorage {
 
 import { catalogItems } from "@shared/schema";
 
-export class DatabaseStorage implements IStorage {
+export class MemStorage implements IStorage {
+  private claims: Map<number, Claim>;
+  private attempts: { ipHash: string; createdAt: Date }[];
+  private currentId: number;
+
+  constructor() {
+    this.claims = new Map();
+    this.attempts = [];
+    this.currentId = 1;
+  }
+
   async getClaimByFingerprint(hash: string): Promise<Claim | undefined> {
-    const [claim] = await db.select().from(claims).where(eq(claims.fingerprintHash, hash));
-    return claim;
+    return Array.from(this.claims.values()).find((c) => c.fingerprintHash === hash);
   }
 
   async getClaimByCode(code: string): Promise<Claim | undefined> {
-    const [claim] = await db.select().from(claims).where(eq(claims.discountCode, code));
-    return claim;
+    return Array.from(this.claims.values()).find((c) => c.discountCode === code);
   }
 
   async createClaim(insertClaim: InsertClaim): Promise<Claim> {
-    const [claim] = await db.insert(claims).values(insertClaim).returning();
+    const id = this.currentId++;
+    const claim: Claim = {
+      ...insertClaim,
+      id,
+      status: "active",
+      createdAt: new Date(),
+    };
+    this.claims.set(id, claim);
     return claim;
   }
 
   async recordAttempt(ipHash: string): Promise<void> {
-    await db.insert(attempts).values({ ipHash });
+    this.attempts.push({ ipHash, createdAt: new Date() });
   }
 
   async getAttemptsCountByIp(ipHash: string, since: Date): Promise<number> {
-    const [result] = await db
-      .select({ count: count() })
-      .from(attempts)
-      .where(and(eq(attempts.ipHash, ipHash), gt(attempts.createdAt, since)));
-    return result.count;
+    return this.attempts.filter((a) => a.ipHash === ipHash && a.createdAt > since).length;
   }
 
   async updateClaimStatus(id: number, status: string): Promise<void> {
-    await db.update(claims).set({ status }).where(eq(claims.id, id));
+    const claim = this.claims.get(id);
+    if (claim) {
+      this.claims.set(id, { ...claim, status });
+    }
   }
 
   async getCatalog(): Promise<any[]> {
@@ -51,4 +64,4 @@ export class DatabaseStorage implements IStorage {
   }
 }
 
-export const storage = new DatabaseStorage();
+export const storage = new MemStorage();
