@@ -15,9 +15,16 @@ export default function Home() {
   const { fingerprintHash, loading: fpLoading } = useFingerprint();
   const { mutate: consult, isPending, data: result } = useConsultOracle();
   const [selectedRune, setSelectedRune] = useState<string | null>(null);
-  const [isMuted, setIsMuted] = useState(false);
-  const [showVideo, setShowVideo] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
+  const [showVideo, setShowVideo] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  const startRitual = () => {
+    setHasStarted(true);
+    setIsMuted(false);
+    setShowVideo(true);
+  };
 
   useEffect(() => {
     if (audioRef.current) {
@@ -54,6 +61,47 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden bg-ritual">
+      <AnimatePresence>
+        {!hasStarted && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/90 backdrop-blur-xl"
+          >
+            <div className="text-center space-y-8 px-4 max-w-2xl">
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                <h1 className="text-5xl md:text-7xl font-display font-bold text-foreground mb-4 tracking-[0.2em] uppercase">
+                  Fox's <span className="text-primary">spells</span>
+                </h1>
+                <p className="text-xl md:text-2xl font-serif text-muted-foreground italic mb-12">
+                  Un oráculo antiguo aguarda tu presencia...
+                </p>
+              </motion.div>
+              
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.4 }}
+              >
+                <Button
+                  onClick={startRitual}
+                  size="lg"
+                  className="px-12 py-8 text-xl font-display tracking-[0.3em] uppercase bg-white/5 hover:bg-white/10 border border-white/20 backdrop-blur-md rounded-full transition-all hover:scale-105 active:scale-95 group"
+                >
+                  Iniciar Ritual
+                  <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                </Button>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Subtle Navigation Menu */}
       <nav className="fixed top-0 left-0 w-full z-[100] px-2 md:px-4 py-6 flex justify-center pointer-events-none">
         <div className="flex items-center gap-4 md:gap-10 px-6 md:px-12 py-3 rounded-full border border-white/10 bg-black/40 backdrop-blur-xl pointer-events-auto shadow-2xl">
