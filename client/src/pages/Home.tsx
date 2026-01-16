@@ -6,19 +6,27 @@ import { Footer } from "@/components/Footer";
 import { useFingerprint } from "@/hooks/use-fingerprint";
 import { useConsultOracle } from "@/hooks/use-oracle";
 import { motion, AnimatePresence } from "framer-motion";
-import { Loader2, Volume2, VolumeX } from "lucide-react";
+import { Loader2, Volume2, VolumeX, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const { fingerprintHash, loading: fpLoading } = useFingerprint();
   const { mutate: consult, isPending, data: result } = useConsultOracle();
   const [selectedRune, setSelectedRune] = useState<string | null>(null);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const startRitual = () => {
+    setHasInteracted(true);
+    if (audioRef.current) {
+      audioRef.current.play().catch(console.error);
+    }
+  };
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = 0.4;
+      audioRef.current.volume = 0.3;
     }
   }, []);
 
@@ -49,6 +57,26 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden bg-ritual">
+      {/* Interaction Overlay for Autoplay */}
+      {!hasInteracted && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md cursor-pointer transition-opacity duration-1000"
+          onClick={startRitual}
+        >
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="text-center"
+          >
+            <div className="text-primary mb-4">
+              <Sparkles className="w-12 h-12 mx-auto animate-pulse" />
+            </div>
+            <h2 className="text-3xl font-display font-bold text-foreground mb-2">Entrar al Ritual</h2>
+            <p className="text-muted-foreground font-serif italic text-lg">Toca para desvelar tu destino</p>
+          </motion.div>
+        </div>
+      )}
+
       {/* Subtle Navigation Menu */}
       <nav className="fixed top-0 left-0 w-full z-50 px-4 py-4 flex items-center pointer-events-none">
         <div className="flex-1 flex justify-start">
