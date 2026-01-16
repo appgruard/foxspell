@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { RuneGrid } from "@/components/RuneGrid";
 import { OracleResult } from "@/components/OracleResult";
 import { CatalogSection } from "@/components/CatalogSection";
@@ -6,12 +6,33 @@ import { Footer } from "@/components/Footer";
 import { useFingerprint } from "@/hooks/use-fingerprint";
 import { useConsultOracle } from "@/hooks/use-oracle";
 import { motion, AnimatePresence } from "framer-motion";
-import { Loader2 } from "lucide-react";
+import { Loader2, Volume2, VolumeX } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const { fingerprintHash, loading: fpLoading } = useFingerprint();
   const { mutate: consult, isPending, data: result } = useConsultOracle();
   const [selectedRune, setSelectedRune] = useState<string | null>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    // Note: Most browsers require user interaction before playing audio
+    if (audioRef.current) {
+      audioRef.current.volume = 0.3; // Moderate volume
+    }
+  }, []);
+
+  const toggleMute = () => {
+    if (audioRef.current) {
+      if (isMuted) {
+        audioRef.current.play().catch(console.error);
+      } else {
+        audioRef.current.pause();
+      }
+      setIsMuted(!isMuted);
+    }
+  };
 
   const handleRuneSelect = (rune: string) => {
     if (!fingerprintHash) return;
@@ -30,7 +51,19 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden bg-ritual">
       {/* Subtle Navigation Menu */}
-      <nav className="fixed top-0 left-0 w-full z-50 px-6 py-4 flex justify-center pointer-events-none">
+      <nav className="fixed top-0 left-0 w-full z-50 px-6 py-4 flex justify-between items-center pointer-events-none">
+        <div className="w-10 h-10 flex items-center justify-center pointer-events-auto">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleMute}
+            className="text-muted-foreground hover:text-primary transition-colors"
+            title={isMuted ? "Activar música" : "Silenciar música"}
+          >
+            {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+          </Button>
+        </div>
+
         <div className="flex items-center gap-8 px-8 py-2 rounded-full border border-white/5 bg-black/20 backdrop-blur-md pointer-events-auto shadow-2xl">
           <a 
             href="#oraculo" 
@@ -63,7 +96,15 @@ export default function Home() {
             Contacto
           </a>
         </div>
+        <div className="w-10" /> {/* Spacer to center the menu */}
       </nav>
+
+      {/* Background Music */}
+      <audio
+        ref={audioRef}
+        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" /* Placeholder, explain to user */
+        loop
+      />
 
       {/* Decorative background elements */}
       <div className="fixed inset-0 pointer-events-none z-0">
