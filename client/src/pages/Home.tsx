@@ -14,6 +14,58 @@ export default function Home() {
   const { mutate: consult, isPending, data: result } = useConsultOracle();
   const [selectedRune, setSelectedRune] = useState<string | null>(null);
   const [isMuted, setIsMuted] = useState(false);
+  const playerRef = useRef<any>(null);
+
+  useEffect(() => {
+    // Load YouTube IFrame Player API
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+
+    (window as any).onYouTubeIframeAPIReady = () => {
+      playerRef.current = new (window as any).YT.Player('youtube-player', {
+        height: '1',
+        width: '1',
+        videoId: 'l08Zw-RY__Q',
+        playerVars: {
+          autoplay: 1,
+          loop: 1,
+          playlist: 'l08Zw-RY__Q',
+          controls: 0,
+          showinfo: 0,
+          autohide: 1,
+          modestbranding: 1
+        },
+        events: {
+          onReady: (event: any) => {
+            event.target.playVideo();
+            if (isMuted) {
+              event.target.mute();
+            } else {
+              event.target.unMute();
+            }
+          }
+        }
+      });
+    };
+
+    return () => {
+      if (playerRef.current) {
+        playerRef.current.destroy();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (playerRef.current && playerRef.current.mute) {
+      if (isMuted) {
+        playerRef.current.mute();
+      } else {
+        playerRef.current.unMute();
+      }
+    }
+  }, [isMuted]);
 
   const toggleMute = () => {
     setIsMuted(!isMuted);
@@ -88,13 +140,7 @@ export default function Home() {
 
       {/* Background Music */}
       <div className="fixed bottom-0 right-0 w-0 h-0 opacity-0 overflow-hidden pointer-events-none">
-        <iframe
-          width="1"
-          height="1"
-          src={`https://www.youtube.com/embed/l08Zw-RY__Q?autoplay=1&loop=1&playlist=l08Zw-RY__Q${isMuted ? '&mute=1' : '&mute=0'}`}
-          title="Wildflower"
-          allow="autoplay"
-        ></iframe>
+        <div id="youtube-player"></div>
       </div>
 
       {/* Decorative background elements */}
