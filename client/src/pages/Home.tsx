@@ -67,21 +67,18 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/40 backdrop-blur-sm"
+            onClick={startRitual}
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/40 backdrop-blur-sm cursor-pointer group"
           >
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
+              className="text-center"
             >
-              <Button
-                onClick={startRitual}
-                variant="ghost"
-                size="lg"
-                className="px-6 py-4 text-xs font-display tracking-[0.2em] uppercase text-white/60 hover:text-white hover:bg-white/5 transition-all duration-300"
-              >
-                Click para continuar
-              </Button>
+              <p className="text-xs font-display tracking-[0.3em] uppercase text-white/40 group-hover:text-white/80 transition-colors duration-500">
+                Click en cualquier lugar para continuar
+              </p>
             </motion.div>
           </motion.div>
         )}
