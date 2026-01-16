@@ -38,11 +38,10 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden bg-ritual">
       {/* Subtle Navigation Menu */}
-      <nav className="fixed top-0 left-0 w-full z-50 px-4 py-4 flex items-center pointer-events-none">
-        {/* Empty left spacer to maintain centering of the pill */}
+      <nav className="fixed top-0 left-0 w-full z-[100] px-4 py-4 flex items-center pointer-events-none">
         <div className="flex-1" />
 
-        <div className="flex items-center gap-8 px-8 py-2 rounded-full border border-white/5 bg-black/20 backdrop-blur-md pointer-events-auto shadow-2xl">
+        <div className="flex items-center gap-8 px-8 py-2 rounded-full border border-white/10 bg-black/40 backdrop-blur-xl pointer-events-auto shadow-2xl">
           <a 
             href="#oraculo" 
             className="text-xs uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
@@ -75,14 +74,13 @@ export default function Home() {
           </a>
         </div>
 
-        {/* Mute button container */}
-        <div className="flex-1 flex justify-end px-4">
+        <div className="flex-1 flex justify-end pr-8">
           <div className="pointer-events-auto">
             <Button
-              variant="ghost"
+              variant="outline"
               size="icon"
               onClick={toggleMute}
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="rounded-full bg-black/40 backdrop-blur-xl border-white/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all shadow-lg"
               title={isMuted ? "Activar música" : "Silenciar música"}
             >
               {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
