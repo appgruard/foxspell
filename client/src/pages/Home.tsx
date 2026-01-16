@@ -88,9 +88,9 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden bg-ritual">
       {/* Subtle Navigation Menu */}
-      <nav className="fixed top-0 left-0 w-full z-50 px-6 py-4 flex items-center pointer-events-none">
+      <nav className="fixed top-0 left-0 w-full z-50 px-4 py-4 flex items-center pointer-events-none">
         <div className="flex-1 flex justify-start">
-          <div className="w-10 h-10 flex items-center justify-center pointer-events-auto">
+          <div className="w-8 h-8 flex items-center justify-center pointer-events-auto">
             <Button
               variant="ghost"
               size="icon"
