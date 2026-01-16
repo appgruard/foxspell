@@ -20,7 +20,9 @@ export default function Home() {
   const startRitual = () => {
     setHasInteracted(true);
     if (audioRef.current) {
-      audioRef.current.play().catch(console.error);
+      audioRef.current.play().catch((err) => {
+        console.error("Audio playback error:", err);
+      });
     }
   };
 
@@ -28,7 +30,7 @@ export default function Home() {
     if (audioRef.current) {
       audioRef.current.volume = 0.3;
     }
-  }, []);
+  }, [hasInteracted]);
 
   const toggleMute = () => {
     if (audioRef.current) {
