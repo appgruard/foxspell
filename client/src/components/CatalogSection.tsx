@@ -15,7 +15,7 @@ export function CatalogSection() {
   }
 
   return (
-    <section className="py-16 md:py-24 max-w-6xl mx-auto px-4">
+    <section id="servicios" className="py-16 md:py-24 max-w-6xl mx-auto px-4">
       <div className="text-center mb-16">
         <h2 className="text-3xl md:text-4xl font-display font-bold text-primary mb-4">
           Grimorio de Servicios

@@ -29,6 +29,42 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden bg-ritual">
+      {/* Subtle Navigation Menu */}
+      <nav className="fixed top-0 left-0 w-full z-50 px-6 py-4 flex justify-center pointer-events-none">
+        <div className="flex items-center gap-8 px-8 py-2 rounded-full border border-white/5 bg-black/20 backdrop-blur-md pointer-events-auto shadow-2xl">
+          <a 
+            href="#oraculo" 
+            className="text-xs uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          >
+            Oráculo
+          </a>
+          <a 
+            href="#servicios" 
+            className="text-xs uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            Servicios
+          </a>
+          <a 
+            href="#contacto" 
+            className="text-xs uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            }}
+          >
+            Contacto
+          </a>
+        </div>
+      </nav>
+
       {/* Decorative background elements */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[100px]" />
