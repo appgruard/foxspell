@@ -53,16 +53,6 @@ export default function Home() {
             Oráculo
           </a>
           <a 
-            href="#lore" 
-            className="text-xs md:text-xs uppercase tracking-[0.15em] md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('lore')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            Sabiduría
-          </a>
-          <a 
             href="#servicios" 
             className="text-xs md:text-xs uppercase tracking-[0.15em] md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
             onClick={(e) => {
@@ -71,6 +61,16 @@ export default function Home() {
             }}
           >
             Servicios
+          </a>
+          <a 
+            href="#informacion" 
+            className="text-xs md:text-xs uppercase tracking-[0.15em] md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('informacion')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            Información
           </a>
           <a 
             href="#contacto" 
@@ -209,14 +209,14 @@ export default function Home() {
           </AnimatePresence>
         </div>
         
+        {/* Catalog */}
+        <CatalogSection />
+
         {/* Divider */}
         <div className="w-full max-w-xs mx-auto h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-24" />
 
-        {/* Lore Section */}
+        {/* Information Section */}
         <LoreSection />
-
-        {/* Catalog */}
-        <CatalogSection />
       </main>
 
       <Footer />

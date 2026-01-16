@@ -21,10 +21,10 @@ export function LoreSection() {
   ];
 
   return (
-    <section id="lore" className="py-24 px-4 max-w-6xl mx-auto border-t border-white/5">
+    <section id="informacion" className="py-24 px-4 max-w-6xl mx-auto border-t border-white/5">
       <div className="text-center mb-16">
         <h2 className="text-3xl md:text-4xl font-display font-bold text-primary mb-4 tracking-wider uppercase">
-          Sabiduría Ancestral
+          Información Mística
         </h2>
         <div className="h-1 w-24 bg-gradient-to-r from-transparent via-primary/40 to-transparent mx-auto" />
       </div>
