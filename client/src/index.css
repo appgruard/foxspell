@@ -15,26 +15,26 @@
   --popover: 240 10% 6%;
   --popover-foreground: 40 20% 90%;
 
-  /* Mystic Gold */
-  --primary: 45 40% 55%;
+  /* Mystic Gold - Adjusted for image reference */
+  --primary: 38 75% 55%;
   --primary-foreground: 240 10% 4%;
 
-  /* Deep ethereal blue/purple */
-  --secondary: 260 20% 15%;
-  --secondary-foreground: 40 20% 90%;
+  /* Deep ethereal blue/purple - Darker for ritual look */
+  --secondary: 240 10% 8%;
+  --secondary-foreground: 0 0% 98%;
 
-  --muted: 240 10% 12%;
-  --muted-foreground: 240 5% 60%;
+  --muted: 240 10% 8%;
+  --muted-foreground: 240 5% 65%;
 
-  --accent: 45 30% 25%;
-  --accent-foreground: 40 20% 95%;
+  --accent: 38 75% 55%;
+  --accent-foreground: 240 10% 4%;
 
-  --destructive: 0 60% 30%;
-  --destructive-foreground: 0 0% 100%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
 
-  --border: 240 10% 15%;
-  --input: 240 10% 15%;
-  --ring: 45 40% 55%;
+  --border: 240 10% 12%;
+  --input: 240 10% 12%;
+  --ring: 38 75% 55%;
 
   --radius: 0.25rem;
   
