@@ -4,8 +4,14 @@ import * as schema from "@shared/schema";
 
 const { Pool } = pg;
 
-// Connection string from user
-const connectionString = "postgresql://neondb_owner:npg_OSJf71uPDGkg@ep-rough-scene-ah5xncls-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
+// Use NEON_DATABASE_URL from environment
+if (!process.env.NEON_DATABASE_URL) {
+  throw new Error("NEON_DATABASE_URL must be set.");
+}
 
-export const pool = new Pool({ connectionString });
+export const pool = new Pool({ 
+  connectionString: process.env.NEON_DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
+});
+
 export const db = drizzle(pool, { schema });
