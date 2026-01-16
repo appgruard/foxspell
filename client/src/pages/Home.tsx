@@ -13,62 +13,24 @@ export default function Home() {
   const { fingerprintHash, loading: fpLoading } = useFingerprint();
   const { mutate: consult, isPending, data: result } = useConsultOracle();
   const [selectedRune, setSelectedRune] = useState<string | null>(null);
-  const [isMuted, setIsMuted] = useState(false);
-  const playerRef = useRef<any>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Load YouTube IFrame Player API
-    const tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
-
-    (window as any).onYouTubeIframeAPIReady = () => {
-      playerRef.current = new (window as any).YT.Player('youtube-player', {
-        height: '1',
-        width: '1',
-        videoId: 'l08Zw-RY__Q',
-        playerVars: {
-          autoplay: 1,
-          loop: 1,
-          playlist: 'l08Zw-RY__Q',
-          controls: 0,
-          showinfo: 0,
-          autohide: 1,
-          modestbranding: 1
-        },
-        events: {
-          onReady: (event: any) => {
-            event.target.playVideo();
-            if (isMuted) {
-              event.target.mute();
-            } else {
-              event.target.unMute();
-            }
-          }
-        }
-      });
-    };
-
-    return () => {
-      if (playerRef.current) {
-        playerRef.current.destroy();
-      }
-    };
+    if (audioRef.current) {
+      audioRef.current.volume = 0.4;
+    }
   }, []);
 
-  useEffect(() => {
-    if (playerRef.current && playerRef.current.mute) {
-      if (isMuted) {
-        playerRef.current.mute();
-      } else {
-        playerRef.current.unMute();
-      }
-    }
-  }, [isMuted]);
-
   const toggleMute = () => {
-    setIsMuted(!isMuted);
+    if (audioRef.current) {
+      if (isMuted) {
+        audioRef.current.play().catch(console.error);
+      } else {
+        audioRef.current.pause();
+      }
+      setIsMuted(!isMuted);
+    }
   };
 
   const handleRuneSelect = (rune: string) => {
@@ -139,9 +101,11 @@ export default function Home() {
       </nav>
 
       {/* Background Music */}
-      <div className="fixed bottom-0 right-0 w-0 h-0 opacity-0 overflow-hidden pointer-events-none">
-        <div id="youtube-player"></div>
-      </div>
+      <audio
+        ref={audioRef}
+        src="https://cdn.pixabay.com/audio/2022/03/10/audio_c369796859.mp3"
+        loop
+      />
 
       {/* Decorative background elements */}
       <div className="fixed inset-0 pointer-events-none z-0">
