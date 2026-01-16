@@ -40,11 +40,11 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden bg-ritual">
       {/* Subtle Navigation Menu */}
-      <nav className="fixed top-0 left-0 w-full z-[100] px-2 md:px-4 py-4 flex justify-center pointer-events-none">
-        <div className="flex items-center gap-3 md:gap-8 px-4 md:px-8 py-2 rounded-full border border-white/10 bg-black/40 backdrop-blur-xl pointer-events-auto shadow-2xl">
+      <nav className="fixed top-0 left-0 w-full z-[100] px-2 md:px-4 py-6 flex justify-center pointer-events-none">
+        <div className="flex items-center gap-4 md:gap-10 px-6 md:px-12 py-3 rounded-full border border-white/10 bg-black/40 backdrop-blur-xl pointer-events-auto shadow-2xl">
           <a 
             href="#oraculo" 
-            className="text-[10px] md:text-xs uppercase tracking-tight md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
+            className="text-[11px] md:text-sm uppercase tracking-tight md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -54,7 +54,7 @@ export default function Home() {
           </a>
           <a 
             href="#servicios" 
-            className="text-[10px] md:text-xs uppercase tracking-tight md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
+            className="text-[11px] md:text-sm uppercase tracking-tight md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
             onClick={(e) => {
               e.preventDefault();
               document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth' });
@@ -64,7 +64,7 @@ export default function Home() {
           </a>
           <a 
             href="#informacion" 
-            className="text-[10px] md:text-xs uppercase tracking-tight md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
+            className="text-[11px] md:text-sm uppercase tracking-tight md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
             onClick={(e) => {
               e.preventDefault();
               document.getElementById('informacion')?.scrollIntoView({ behavior: 'smooth' });
@@ -74,7 +74,7 @@ export default function Home() {
           </a>
           <a 
             href="#contacto" 
-            className="text-[10px] md:text-xs uppercase tracking-tight md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
+            className="text-[11px] md:text-sm uppercase tracking-tight md:tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors font-display"
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
@@ -82,15 +82,15 @@ export default function Home() {
           >
             Contacto
           </a>
-          <div className="w-px h-4 bg-white/10 mx-1 md:mx-2" />
+          <div className="w-px h-5 bg-white/10 mx-1 md:mx-3" />
           <Button
             variant="ghost"
             size="icon"
             onClick={toggleMute}
-            className="text-muted-foreground hover:text-primary transition-colors w-6 h-6 p-0 no-default-hover-elevate"
+            className="text-muted-foreground hover:text-primary transition-colors w-8 h-8 p-0 no-default-hover-elevate"
             title={isMuted ? "Activar música" : "Silenciar música"}
           >
-            {isMuted ? <VolumeX className="w-3.5 h-3.5 md:w-4 md:h-4" /> : <Volume2 className="w-3.5 h-3.5 md:w-4 md:h-4" />}
+            {isMuted ? <VolumeX className="w-4 h-4 md:w-5 md:h-5" /> : <Volume2 className="w-4 h-4 md:w-5 md:h-5" />}
           </Button>
         </div>
       </nav>

@@ -89,6 +89,10 @@ export function LoreSection() {
               <div className="space-y-2 font-serif text-sm">
                 <p className="text-foreground font-mono">4152314395088746</p>
                 <p className="text-muted-foreground text-xs uppercase tracking-wider">Naomi Carrillo</p>
+                <p className="flex justify-between items-center border-t border-white/5 pt-2 mt-2">
+                  <span className="text-muted-foreground">Llave BBVA:</span>
+                  <span className="text-foreground font-mono">3104462860</span>
+                </p>
               </div>
             </div>
 
@@ -108,20 +112,16 @@ export function LoreSection() {
             <div className="space-y-4 p-6 rounded-2xl bg-black/40 border border-white/5">
               <h4 className="font-display font-bold text-primary flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-primary" />
-                Colombia (Nequi / BBVA)
+                Colombia (Nequi)
               </h4>
               <div className="space-y-2 font-serif text-sm">
                 <p className="flex justify-between items-center border-b border-white/5 pb-1">
                   <span className="text-muted-foreground">Nequi:</span>
                   <span className="text-foreground">3104462860</span>
                 </p>
-                <p className="flex justify-between items-center border-b border-white/5 pb-1">
+                <p className="flex justify-between items-center">
                   <span className="text-muted-foreground">Llave Nequi:</span>
                   <span className="text-foreground text-[10px] md:text-sm">jesúsgarcía2k51@gmail.com</span>
-                </p>
-                <p className="flex justify-between items-center">
-                  <span className="text-muted-foreground">Llave BBVA:</span>
-                  <span className="text-foreground">3104462860</span>
                 </p>
               </div>
             </div>
