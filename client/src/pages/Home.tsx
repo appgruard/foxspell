@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 import { useFingerprint } from "@/hooks/use-fingerprint";
 import { useConsultOracle } from "@/hooks/use-oracle";
 import { motion, AnimatePresence } from "framer-motion";
-import { Loader2, Volume2, VolumeX, Sparkles } from "lucide-react";
+import { Loader2, Volume2, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
@@ -14,33 +14,11 @@ export default function Home() {
   const { mutate: consult, isPending, data: result } = useConsultOracle();
   const [selectedRune, setSelectedRune] = useState<string | null>(null);
   const [isMuted, setIsMuted] = useState(false);
-  const [hasInteracted, setHasInteracted] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  const startRitual = () => {
-    setHasInteracted(true);
-    if (audioRef.current) {
-      audioRef.current.play().catch((err) => {
-        console.error("Audio playback error:", err);
-      });
-    }
-  };
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = 0.3;
-    }
-  }, [hasInteracted]);
+  const [showVideo, setShowVideo] = useState(true);
 
   const toggleMute = () => {
-    if (audioRef.current) {
-      if (isMuted) {
-        audioRef.current.play().catch(console.error);
-      } else {
-        audioRef.current.pause();
-      }
-      setIsMuted(!isMuted);
-    }
+    setShowVideo(!showVideo);
+    setIsMuted(!isMuted);
   };
 
   const handleRuneSelect = (rune: string) => {
@@ -59,30 +37,10 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden bg-ritual">
-      {/* Interaction Overlay for Autoplay */}
-      {!hasInteracted && (
-        <div 
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md cursor-pointer transition-opacity duration-1000"
-          onClick={startRitual}
-        >
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-center"
-          >
-            <div className="text-primary mb-4">
-              <Sparkles className="w-12 h-12 mx-auto animate-pulse" />
-            </div>
-            <h2 className="text-3xl font-display font-bold text-foreground mb-2">Entrar al Ritual</h2>
-            <p className="text-muted-foreground font-serif italic text-lg">Toca para desvelar tu destino</p>
-          </motion.div>
-        </div>
-      )}
-
       {/* Subtle Navigation Menu */}
-      <nav className="fixed top-0 left-0 w-full z-50 px-4 py-4 flex items-center pointer-events-none">
+      <nav className="fixed top-0 left-0 w-full z-50 px-6 py-4 flex items-center pointer-events-none">
         <div className="flex-1 flex justify-start">
-          <div className="w-8 h-8 flex items-center justify-center pointer-events-auto">
+          <div className="w-10 h-10 flex items-center justify-center pointer-events-auto">
             <Button
               variant="ghost"
               size="icon"
@@ -131,11 +89,17 @@ export default function Home() {
       </nav>
 
       {/* Background Music */}
-      <audio
-        ref={audioRef}
-        src="https://cdn.pixabay.com/audio/2022/03/10/audio_c369796859.mp3"
-        loop
-      />
+      {showVideo && (
+        <div className="fixed bottom-0 right-0 w-0 h-0 opacity-0 overflow-hidden pointer-events-none">
+          <iframe
+            width="1"
+            height="1"
+            src="https://www.youtube.com/embed/l08Zw-RY__Q?autoplay=1&loop=1&playlist=l08Zw-RY__Q"
+            title="Wildflower"
+            allow="autoplay"
+          ></iframe>
+        </div>
+      )}
 
       {/* Decorative background elements */}
       <div className="fixed inset-0 pointer-events-none z-0">
