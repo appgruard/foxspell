@@ -23,7 +23,7 @@ export class FileStorage implements IStorage {
   private attemptsFile: string;
 
   constructor() {
-    this.dataDir = path.resolve(process.cwd(), "data");
+    this.dataDir = path.resolve("/app", "data");
     this.claimsFile = path.join(this.dataDir, "claims.json");
     this.attemptsFile = path.join(this.dataDir, "attempts.json");
 
