@@ -28,6 +28,11 @@ export function OracleResult({ benefit, code, message, alreadyClaimed, rune }: O
     }
   };
 
+  const handleTwitterShare = () => {
+    const text = `He consultado el Oráculo de las Runas ${rune} @mysticFoxyy y he obtenido un ${benefit} de descuento! Mi código es: ${code}`;
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, "_blank");
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -74,8 +79,19 @@ export function OracleResult({ benefit, code, message, alreadyClaimed, rune }: O
             </div>
           )}
 
-          <Button 
-            onClick={handleCopy}
+            <Button 
+              onClick={handleTwitterShare}
+              variant="outline" 
+              className="w-full border-primary/30 hover:bg-primary/10 hover:text-primary transition-all mb-3"
+            >
+              <svg className="mr-2 h-4 w-4 fill-current" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+              Reclamar en Twitter
+            </Button>
+
+            <Button 
+              onClick={handleCopy}
             variant="outline" 
             className="w-full border-primary/30 hover:bg-primary/10 hover:text-primary transition-all group-hover:border-primary/50"
           >

@@ -1,10 +1,11 @@
-import { useCatalog } from "@/hooks/use-oracle";
+import { useCatalog, useConsultOracle } from "@/hooks/use-oracle";
 import { Skeleton } from "./ui/skeleton";
 import { motion } from "framer-motion";
 import { Scroll, Sparkles } from "lucide-react";
 
 export function CatalogSection() {
   const { data: items, isLoading } = useCatalog();
+  const { data: oracleData } = useConsultOracle();
 
   const spells = items?.filter(i => i.type === "spell") || [];
   const readings = items?.filter(i => i.type === "reading") || [];
@@ -35,7 +36,7 @@ export function CatalogSection() {
           
           <div className="space-y-6">
             {spells.map((item, i) => (
-              <CatalogItem key={item.id} item={item} index={i} />
+              <CatalogItem key={item.id} item={item} index={i} oracleData={oracleData} />
             ))}
           </div>
         </div>
@@ -49,7 +50,7 @@ export function CatalogSection() {
           
           <div className="space-y-6">
             {readings.map((item, i) => (
-              <CatalogItem key={item.id} item={item} index={i} delay={0.2} />
+              <CatalogItem key={item.id} item={item} index={i} delay={0.2} oracleData={oracleData} />
             ))}
           </div>
         </div>
@@ -58,14 +59,23 @@ export function CatalogSection() {
   );
 }
 
-function CatalogItem({ item, index, delay = 0 }: { item: any; index: number; delay?: number }) {
+function CatalogItem({ item, index, delay = 0, oracleData }: { item: any; index: number; delay?: number; oracleData?: any }) {
+  const handleItemClick = () => {
+    let text = `¡Quiero este ${item.type === 'spell' ? 'hechizo' : 'lectura'}: ${item.name}! @mysticFoxyy.`;
+    if (oracleData?.code) {
+      text += ` Tengo un ${oracleData.benefit} de descuento (Código: ${oracleData.code}).`;
+    }
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, "_blank");
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
       transition={{ delay: delay + index * 0.1 }}
-      className="group flex justify-between items-baseline border-b border-dashed border-white/5 pb-2 hover:border-primary/30 transition-colors"
+      onClick={handleItemClick}
+      className="group flex justify-between items-baseline border-b border-dashed border-white/5 pb-2 hover:border-primary/30 transition-colors cursor-pointer"
     >
       <span className="text-lg font-serif text-foreground/80 group-hover:text-primary transition-colors">
         {item.name}
