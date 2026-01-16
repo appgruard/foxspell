@@ -64,7 +64,7 @@ export async function registerRoutes(
       const isSuspicious = attemptsCount > 5;
 
       const benefit = determineBenefit(isSuspicious);
-      const code = `NORDIC-${crypto.randomBytes(3).toString('hex').toUpperCase()}`;
+      const code = crypto.randomBytes(4).toString('hex').toUpperCase();
 
       const claim = await storage.createClaim({
         fingerprintHash: input.fingerprintHash,
